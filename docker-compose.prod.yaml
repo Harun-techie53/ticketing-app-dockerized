@@ -1,0 +1,12 @@
+services:
+  auth:
+    build:
+      context: ./auth
+      args:
+        NODE_ENV: production
+    environment:
+      - JWT_KEY=myjwtsecretkey
+      - NODE_ENV=production
+      - MONGO_USER=harun
+      - MONGO_PASSWORD=123456789
+    command: npm run start
