@@ -63,8 +63,3 @@ services:
     ports:
       - "6379:6379"
     restart: unless-stopped
-
-volumes:
-  auth-mongo:
-  tickets-mongo:
-  orders-mongo:
