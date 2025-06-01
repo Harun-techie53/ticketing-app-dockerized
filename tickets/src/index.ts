@@ -30,6 +30,8 @@ const start = async () => {
     throw new Error("NATS Client ID not defined yet");
   }
 
+  const mongoUri = `mongodb+srv://${config.MONGO_USER}:${config.MONGO_PASSWORD}@cluster0.kcvr2uw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+
   try {
     await natsClient.connect(
       process.env.NATS_CLUSTER_ID,
@@ -45,9 +47,7 @@ const start = async () => {
 
     new OrderCreatedListener(natsClient.client).listen();
     new OrderCancelledListener(natsClient.client).listen();
-    await mongoose.connect(
-      `mongodb://${config.MONGO_USER}:${config.MONGO_PASSWORD}@${config.MONGO_IP}:${config.MONGO_PORT}?authSource=admin`
-    );
+    await mongoose.connect(mongoUri);
     console.log("Connected to database");
   } catch (error) {
     console.log("Database error", error);

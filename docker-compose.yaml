@@ -6,8 +6,6 @@ services:
       - PORT=5000
     ports:
       - "5000:5000"
-    depends_on:
-      - auth-mongo
     restart: always
 
   tickets:
@@ -17,8 +15,6 @@ services:
       - PORT=5001
     ports:
       - "5001:5001"
-    depends_on:
-      - tickets-mongo
     restart: always
 
   orders:
@@ -28,8 +24,6 @@ services:
       - PORT=5002
     ports:
       - "5002:5002"
-    depends_on:
-      - orders-mongo
     restart: always
 
   expiration:
@@ -40,30 +34,6 @@ services:
     ports:
       - "5003:5003"
     restart: always
-
-  auth-mongo:
-    image: mongo
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=harun
-      - MONGO_INITDB_ROOT_PASSWORD=123456789
-    volumes:
-      - auth-mongo:/data/db
-
-  tickets-mongo:
-    image: mongo
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=harun
-      - MONGO_INITDB_ROOT_PASSWORD=123456789
-    volumes:
-      - tickets-mongo:/data/db
-
-  orders-mongo:
-    image: mongo
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=harun
-      - MONGO_INITDB_ROOT_PASSWORD=123456789
-    volumes:
-      - orders-mongo:/data/db
 
   nats:
     image: nats-streaming:0.17.0

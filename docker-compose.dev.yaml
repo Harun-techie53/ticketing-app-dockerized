@@ -11,7 +11,7 @@ services:
       - JWT_KEY=myjwtsecretkey
       - NODE_ENV=development
       - MONGO_USER=harun
-      - MONGO_PASSWORD=123456789
+      - MONGO_PASSWORD=MNtWkhVQk9Ze9iaU
     command: npm run dev
   tickets:
     build:
@@ -25,7 +25,7 @@ services:
       - JWT_KEY=myjwtsecretkey
       - NODE_ENV=development
       - MONGO_USER=harun
-      - MONGO_PASSWORD=123456789
+      - MONGO_PASSWORD=MNtWkhVQk9Ze9iaU
       - NATS_CLUSTER_ID=ticketing
       - NATS_CLIENT_URL=http://nats:4222
       - NATS_CLIENT_ID=tickets
@@ -42,8 +42,8 @@ services:
     environment:
       - JWT_KEY=myjwtsecretkey
       - NODE_ENV=development
-      - MONGO_USER=harun
-      - MONGO_PASSWORD=123456789
+      - MONGO_USER=harunurrashid1809030
+      - MONGO_PASSWORD=D3OZSxsiVhpuiqu6
       - NATS_CLUSTER_ID=ticketing
       - NATS_CLIENT_URL=http://nats:4222
       - NATS_CLIENT_ID=orders

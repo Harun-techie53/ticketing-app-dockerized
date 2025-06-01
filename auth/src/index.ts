@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { mongo } from "mongoose";
 import { app } from "./app";
 import config from "./config";
 
@@ -15,9 +15,11 @@ const start = async () => {
     throw new Error("MONGO_PASSWORD not defined yet");
   }
 
+  const mongoUri = `mongodb+srv://${config.MONGO_USER}:${config.MONGO_PASSWORD}@cluster0.kcvr2uw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+
   try {
     await mongoose.connect(
-      `mongodb://${config.MONGO_USER}:${config.MONGO_PASSWORD}@${config.MONGO_IP}:${config.MONGO_PORT}?authSource=admin`
+      mongoUri
     );
     console.log("Connected to database");
   } catch (error) {
