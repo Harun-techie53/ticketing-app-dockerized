@@ -1,0 +1,54 @@
+services:
+  auth:
+    build:
+      context: ./auth
+      args:
+        NODE_ENV: development
+    volumes:
+      - ./auth:/app
+      - /app/node_modules
+    environment:
+      - JWT_KEY=myjwtsecretkey
+      - NODE_ENV=development
+      - MONGO_USER=harun
+      - MONGO_PASSWORD=MNtWkhVQk9Ze9iaU
+    command: npm run dev
+    restart: always
+
+  tickets:
+    build:
+      context: ./tickets
+      args:
+        NODE_ENV: development
+    volumes:
+      - ./tickets:/app
+      - /app/node_modules
+    environment:
+      - JWT_KEY=myjwtsecretkey
+      - NODE_ENV=development
+      - MONGO_USER=harun
+      - MONGO_PASSWORD=MNtWkhVQk9Ze9iaU
+      - NATS_CLUSTER_ID=ticketing
+      - NATS_CLIENT_URL=http://nats:4222
+      - NATS_CLIENT_ID=tickets
+    command: npm run dev
+    restart: always
+
+  orders:
+    build:
+      context: ./orders
+      args:
+        NODE_ENV: development
+    volumes:
+      - ./orders:/app
+      - /app/node_modules
+    environment:
+      - JWT_KEY=myjwtsecretkey
+      - NODE_ENV=development
+      - MONGO_USER=harunurrashid1809030
+      - MONGO_PASSWORD=D3OZSxsiVhpuiqu6
+      - NATS_CLUSTER_ID=ticketing
+      - NATS_CLIENT_URL=http://nats:4222
+      - NATS_CLIENT_ID=orders
+    command: npm run dev
+    restart: always

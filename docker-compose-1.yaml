@@ -1,0 +1,46 @@
+services:
+    expiration:
+    build:
+      context: ./expiration
+      args:
+        NODE_ENV: development
+    volumes:
+      - ./expiration:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - NATS_CLUSTER_ID=ticketing
+      - NATS_CLIENT_URL=http://nats:4222
+      - NATS_CLIENT_ID=expiration
+      - REDIS_HOST=expiration-redis
+    command: npm run dev
+    restart: always
+
+  nats:
+    image: nats-streaming:0.17.0
+    command:
+      [
+        "-p",
+        "4222",
+        "-m",
+        "8222",
+        "-hbi",
+        "5s",
+        "-hbt",
+        "5s",
+        "-hbf",
+        "2",
+        "-SD",
+        "-cid",
+        "ticketing",
+      ]
+    ports:
+      - "4222:4222" # NATS client port
+      - "8222:8222" # Monitoring port
+    restart: unless-stopped
+
+  expiration-redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
